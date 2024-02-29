@@ -1,6 +1,3 @@
-import json
-
-
 data_flights = [
   {
     "id": "13870-2208011240--32222-0-12712-2208011455|12712-2208152100--32222-0-13870-2208161020",
@@ -1772,8 +1769,8 @@ def get_fastest_flight_route():
        "data": fastest_flights
     }
 
-def get_sorted_flights_by_price(is_descending: bool):
-  return sorted(data_flights, key=lambda flight: flight['pricing_options'][0]['price']['amount'], reverse=not is_descending)
+def get_sorted_flights_by_price(is_descending: bool, limit: int = 10):
+  return sorted(data_flights, key=lambda flight: flight['pricing_options'][0]['price']['amount'], reverse=not is_descending)[:limit]
 
 def get_flights_by_company(company_id: str):
   return list(filter(lambda flight: flight['pricing_options'][0]['agents'][0]['id'] == company_id, data_flights))
