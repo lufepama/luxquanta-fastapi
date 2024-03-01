@@ -6529,3 +6529,7 @@ class TestFlights:
         
         assert response.status_code == 200
         assert response.json() == expected_response
+
+    def test_sort_flights_by_price_failed(self, api_client):
+        response = api_client.get("/sort_flights_by_price?sorting_asc=not_boolean_value")
+        assert response.status_code == 400
