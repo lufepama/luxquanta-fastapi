@@ -1770,10 +1770,24 @@ def get_fastest_flight_route():
     }
 
 def get_sorted_flights_by_price(is_descending: bool, limit: int = 10):
-  return sorted(data_flights, key=lambda flight: flight['pricing_options'][0]['price']['amount'], reverse=not is_descending)[:limit]
+  '''
+    Here, I propose two methods:
+      1. Utilize the "sorted" method.
+      2. Implement the bubble sort algorithm.
+  '''
+  # 1. return sorted(data_flights, key=lambda flight: flight['pricing_options'][0]['price']['amount'], reverse=not is_descending)[:limit]
+  #2
+  return _sort_flights_bubble(data_flights, is_descending)[:limit]
 
 def get_flights_by_company(company_id: str):
-  return list(filter(lambda flight: flight['pricing_options'][0]['agents'][0]['id'] == company_id, data_flights))
+  '''
+    Here, I suggest two methods:
+      1.Apply the filter method.
+      2. Utilize manual filtering.
+  '''
+  # 1. return list(filter(lambda flight: flight['pricing_options'][0]['agents'][0]['id'] == company_id, data_flights))
+  #2
+  return _filter_flights_by_company(data_flights, company_id)
 
 def _adapt_flight_trip_data(flight_id, flight_deeplink, flight_leg):
   return {
@@ -1781,3 +1795,24 @@ def _adapt_flight_trip_data(flight_id, flight_deeplink, flight_leg):
     "flight_deeplink": flight_deeplink,
     "trip": flight_leg
   }
+
+def _sort_flights_bubble(data_flights, is_descending: bool):
+    'Bubble sort algorithm'
+
+    n = len(data_flights)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            price1 = data_flights[j]['pricing_options'][0]['price']['amount']
+            price2 = data_flights[j+1]['pricing_options'][0]['price']['amount']
+            if (price1 > price2) if is_descending else (price1 < price2):
+                data_flights[j], data_flights[j+1] = data_flights[j+1], data_flights[j]
+    return data_flights
+
+def _filter_flights_by_company(data_flights, company_id: str):
+    'Manual filtering algorithm'
+    
+    filtered_flights = []
+    for flight in data_flights:
+        if flight['pricing_options'][0]['agents'][0]['id'] == company_id:
+            filtered_flights.append(flight)
+    return filtered_flights

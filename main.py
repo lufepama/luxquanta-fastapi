@@ -20,12 +20,6 @@ app.add_middleware(
 )
 
 
-#  - `/show_flights` => show all flights
-#  - `/show_fastest_route` => retrieve fastest total flight time route
-#  - `/sort_flights_by_price` => sorted flights by price: (parameters ->  `sorting_asc`: `True` or `False`, `limit`: number of flights shown)
-#  - `/show_flights_by_company` => show only routes provided by the company (pass argument)
-
-
 @app.get("/show_flights", status_code=200)
 def show_flights() -> list[flight_schemas.FlightDetail]:
     return flights.get_flights()
