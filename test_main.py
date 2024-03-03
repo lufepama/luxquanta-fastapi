@@ -10,7 +10,7 @@ class TestFlights:
         return TestClient(app)
     
     def test_show_flights(self, api_client):
-        expected_response_show_flights = [
+        expected_response = [
             {
                 "id": "13870-2208011240--32222-0-12712-2208011455|12712-2208152100--32222-0-13870-2208161020",
                 "legs": [
@@ -1766,7 +1766,7 @@ class TestFlights:
         response = api_client.get("/show_flights")
 
         assert response.status_code == 200
-        assert response.json() == expected_response_show_flights
+        assert response.json() == expected_response
     
     def test_show_fastest_route(self, api_client):
         expected_response = {
