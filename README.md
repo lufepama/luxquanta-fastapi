@@ -2,12 +2,17 @@ PRUEBA TÉCNICA LUXQUANTA
 Autor: Luis Felipe
 
 - Levantar el servidor:
+  
   $ docker compose up
 
-- Correr los tests
+- Correr los tests:
+  
   (1) Acceder a la terminal del contenedor levantado.
+  
   $ docker exec -it {container_id} sh
+
   (2) Ejecuta el comando de pytest
+  
   $ pytest test_main.py
 
 NOTA:
